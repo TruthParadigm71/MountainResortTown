@@ -1,0 +1,16 @@
+******************************************************************************************************
+
+We want to build out sample code for building a solution in Snowflake. Initially, we want to include:
+	DDL for tables, views, and other common objects.
+	Store procedure templates.
+	Structures for Audit, Balance, and Control operations.
+	Examples of advanced functionality:
+		Dynamic Tables
+		Session creation and pyspark code for SnowPark
+		Streams and Tasks
+		External Stages
+		Copy Into statements
+
+There will be more as we continue to learn and develop useful POC's.
+
+******************************************************************************************************
