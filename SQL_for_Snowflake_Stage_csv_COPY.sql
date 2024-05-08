@@ -115,7 +115,10 @@ create or replace TABLE SOURCEDB.PUBLIC.LND_POS_TRN_LVL_HDR (
 SET V_AWS_KEY_ID = 'AKIA5JDY2QSXTDGWSZLO';
 SET V_AWS_SECRET_KEY='';
 
--- Create a stage for POS data
+-- ********************************************************************
+-- External Stage pointing to S3 
+-- ********************************************************************
+
 CREATE OR REPLACE STAGE STAGE_QUICKSERVE_POS
   FILE_FORMAT = csvformat
   URL = 's3://quickserve/' 
@@ -123,12 +126,26 @@ CREATE OR REPLACE STAGE STAGE_QUICKSERVE_POS
   directory=(enable=true)
   ;
 
-CREATE OR REPLACE FILE FORMAT csvformat
-   TYPE = 'CSV'
-   FIELD_DELIMITER = ','
-   SKIP_HEADER = 1;
+-- ********************************************************************
+-- Snowpipe
+-- ********************************************************************
+-- Create a Snowflake pipe object to load data from the external stage into a Snowflake table
+CREATE OR REPLACE PIPE QUICKSERVE_POS_PIPE
+AUTO_INGEST = TRUE -- Enable auto-ingest to automatically load new data as it becomes available, will create SQS Queue.
+AS
+COPY INTO PUBLIC.LND_POS_TRN_LVL_HDR -- Destination table in Snowflake
+FROM  @STAGE_QUICKSERVE_POS -- Source external stage
+FILE_FORMAT = (FORMAT_NAME = csvformat) -- Specify the file format for parsing the data
+ON_ERROR = CONTINUE -- Specify error handling behavior (CONTINUE or ABORT)
+;
 
--- Create a COPY INTO statement for our landing table from file on S3
-COPY INTO LND_POS_TRN_LVL_HDR
-FROM @STAGE_QUICKSERVE_POS
+-- Get our SQS ARN from our stage
+SHOW PIPES; -- arn:aws:sqs:us-east-1:381491880937:sf-snowpipe-AIDAVRUVQEPUZQFGKIS5R-VimNtX3IMMmfXaP_bvvXvw
+SHOW STAGES;
+
+-- Update Event notifications on our S3 bucket to send notifications to SQS using arn.
+
+-- Add files to bucket and confirm load
+SELECT * 
+FROM PUBLIC.LND_POS_TRN_LVL_HDR
 ;
