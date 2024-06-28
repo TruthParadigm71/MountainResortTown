@@ -9,7 +9,7 @@ We want to build out sample code for building a solution in Snowflake. Initially
 		Session creation and pyspark code for SnowPark
 		Streams and Tasks
 		External Stages
-		Copy Into statements
+		Copy Into statements, Snowpipe objects for automation.
 
 There will be more as we continue to learn and develop useful POC's.
 
