@@ -1,4 +1,5 @@
 -- Update to DDL using CREATE OR ALTER syntax
+-- Make sure we add this to our git repository. Later we will execute this file from the repo.
 CREATE OR ALTER TABLE PUBLIC.SIMPLE_POC (
     RECORD_ID INT NOT NULL,
     RECORD_DATE DATE NOT NULL,
