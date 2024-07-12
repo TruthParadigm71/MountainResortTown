@@ -26,3 +26,7 @@ RECORD_DESC,
 RECORD_AMT 
 FROM PUBLIC.SIMPLE_POC 
 ;
+
+-- Make sure we drop the table so we minimize our monthly billing.
+DROP TABLE PUBLIC.SIMPLE_POC 
+;
