@@ -5,7 +5,7 @@
 -- Create a secret object to store GitHub credentials.
 CREATE OR REPLACE SECRET GITHUB_SECRET
 TYPE = PASSWORD 
-USERNAME = 'TruthParadigm71'
+USERNAME = ''
 PASSWORD = ''
 ;
 
