@@ -5,8 +5,8 @@
 -- Create a secret object to store GitHub credentials.
 CREATE OR REPLACE SECRET GITHUB_SECRET
 TYPE = PASSWORD 
-USERNAME = 'github-user'
-PASSWORD = 'github-access-token'
+USERNAME = 'TruthParadigm71'
+PASSWORD = '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'
 ;
 
 SHOW SECRETS 
@@ -47,4 +47,11 @@ LIST @GIT_REPO_DEMO/branches/main
 ;
 
 SHOW GIT TAGS IN GIT_REPO_DEMO
+;
+
+ALTER GIT REPOSITORY GIT_REPO_DEMO FETCH
+;
+
+-- Execute Immediate
+EXECUTE IMMEDIATE FROM @GIT_REPO_DEMO/branches/main/SQL_for_Snowflake_Execute_Immediate.sql 
 ;
